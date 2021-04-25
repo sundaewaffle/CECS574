@@ -98,8 +98,8 @@ testing_set = ImageDataGenerator(
 )
 
 # load dataset
-train_dir = 'drive/MyDrive/CECS574/Covid19-dataset/train'
-test_dir = 'drive/MyDrive/CECS574/Covid19-dataset/test'
+train_dir = 'Covid19-dataset/train'
+test_dir = 'Covid19-dataset/test'
 train_set = training_set.flow_from_directory(train_dir, target_size=(rows,cols), batch_size=8, class_mode='categorical')
 test_set = testing_set.flow_from_directory(test_dir, target_size=(rows,cols), batch_size=8, class_mode='categorical')
 
