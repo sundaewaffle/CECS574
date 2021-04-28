@@ -89,6 +89,9 @@ from keras.preprocessing.image import ImageDataGenerator
 
 """
 
+# image size
+rows, cols = 224, 224
+
 # image generator
 training_set = ImageDataGenerator(
     rescale=1./255
@@ -98,17 +101,14 @@ testing_set = ImageDataGenerator(
 )
 
 # load dataset
-train_dir = 'Covid19-dataset/train'
-test_dir = 'Covid19-dataset/test'
+train_dir = 'drive/MyDrive/CECS574/Covid19-dataset/train'
+test_dir = 'drive/MyDrive/CECS574/Covid19-dataset/test'
 train_set = training_set.flow_from_directory(train_dir, target_size=(rows,cols), batch_size=8, class_mode='categorical')
 test_set = testing_set.flow_from_directory(test_dir, target_size=(rows,cols), batch_size=8, class_mode='categorical')
 
 """Create Model, training, and evaluate.
 
 """
-
-# image size
-rows, cols = 224, 224
 
 # create model (AlexNet)
 model = Sequential([
@@ -156,3 +156,14 @@ model.fit(
 score = model.evaluate(test_set, verbose=0)
 print('Test loss:', score[0])
 print('Test accuracy:', score[1])
+
+# load 1 image testing set
+testing_1_set = ImageDataGenerator(
+    rescale=1./255
+)
+
+test_1_dir = 'drive/MyDrive/CECS574/Covid19-dataset/test_1'
+test_1_set = testing_set.flow_from_directory(test_1_dir, target_size=(rows,cols), batch_size=8, class_mode='categorical')
+
+prediction = model.predict(test_1_set)
+print('Probability of have COVID-19: ', prediction[0][0]*100, '%')
